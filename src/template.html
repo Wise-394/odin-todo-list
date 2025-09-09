@@ -9,9 +9,47 @@
 
 <body>
     <header>
-        <button id = "new-todo-button">new</button>
+        <button id="new-todo-button">new</button>
+        <dialog id="new-todo-modal">
+            <form method="dialog" id="new-todo-form">
+                <h2>New Todo Item</h2>
+
+                <label for="title">Title</label>
+                <input type="text" id="title" name="title" required>
+
+                <label for="description">Description</label>
+                <textarea id="description" name="description" rows="3" required></textarea>
+
+                <label for="state">State</label>
+                <select id="state" name="state">
+                    <option value="unfinished">Unfinished</option>
+                    <option value="finished">Finished</option>
+                </select>
+
+                <label for="due-date">Due Date</label>
+                <input type="date" id="dueDate" name="due-date">
+
+                <label for="priority">Priority</label>
+                <select id="priority" name="priority">
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                </select>
+
+                <label for="project">Project</label>
+                <input type="text" id="project" name="project" value="default">
+
+                <!-- Buttons -->
+                <menu>
+                    <button type="reset" class="close-modal-button">Cancel</button>
+                    <button type="submit">Add Todo</button>
+                </menu>
+            </form>
+        </dialog>
+
     </header>
     <div class="todo-list-container">
+
     </div>
 </body>
 
