@@ -1,4 +1,11 @@
 body {
     background-color: black;
     color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.todo-list-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(200px,1fr));
 }

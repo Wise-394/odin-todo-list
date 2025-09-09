@@ -1,6 +1,7 @@
 import './style.css';
-import { TodoList } from './todo-list';
+import { Controller } from './class/controller';
 
 
-const toDoList = new TodoList;
-window.toDoList = toDoList;
+const controller = new Controller()
+controller.addList();
+controller.displayList();
