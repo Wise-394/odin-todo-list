@@ -1,7 +1,7 @@
+import { Controller } from './modules/controller';
+import { View } from './modules/view';
 import './style.css';
-import { Controller } from './class/controller';
 
-
-const controller = new Controller()
-controller.addList();
-controller.displayList();
+View.init();
+Controller.addList();
+Controller.displayList();

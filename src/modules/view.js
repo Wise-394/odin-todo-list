@@ -1,10 +1,19 @@
+import { Controller } from "./controller";
+
 export class View {
-    todoListContainer = document.querySelector(".todo-list-container");
-    displayTodoList(todoListArray) {
-        todoListArray.forEach((item) => {
+        static #todoListContainer = document.querySelector(".todo-list-container");
+        static #newTodoButton = document.querySelector("#new-todo-button");
+
+    static init(){
+        this.#newTodoButton.addEventListener(("click"), () => Controller.newTodo());
+    }
+
+    static displayTodoList(todoListArray) {
+        this.#todoListContainer.innerHTML = "";
+
+        todoListArray.forEach((item, index) => {
             const todoItemContainer = document.createElement("div");
             todoItemContainer.className = "todo-item-container";
-            this.todoListContainer.appendChild(todoItemContainer);
 
             // Title
             const title = document.createElement("p");
@@ -16,10 +25,10 @@ export class View {
             description.textContent = `Description: ${item.description}`;
             todoItemContainer.appendChild(description);
 
-            // State
+            // State (checkbox)
             const state = document.createElement("input");
             state.type = "checkbox";
-            state.checked = this.#stateHelper(item.state);
+            state.checked = item.state === "finished";
             todoItemContainer.appendChild(state);
 
             // Due Date
@@ -36,9 +45,8 @@ export class View {
             const project = document.createElement("p");
             project.textContent = `Project: ${item.project}`;
             todoItemContainer.appendChild(project);
+
+            this.#todoListContainer.appendChild(todoItemContainer);
         });
-    }
-    #stateHelper(state){
-        return state === "finished" ? true : false;
     }
 }

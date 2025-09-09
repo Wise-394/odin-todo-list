@@ -1,14 +1,14 @@
 import { TodoItem } from "./todo-item";
 
 export class TodoList {
-    #todoItemArray = [];
+    static #todoItemArray = [];
 
-    createTodoItem(title, description, state, dueDate, priority, project = "default") {
+    static createTodoItem(title, description, state, dueDate, priority, project = "default") {
         const todoItem = new TodoItem(title, description, state, dueDate, priority, project);
         this.#todoItemArray.push(todoItem);
     }
 
-    getTodoItemArray(project = "default") {
+    static getTodoItemArray(project = "default") {
         if (project === "default") {
             return this.#todoItemArray;
         } else {
@@ -16,19 +16,19 @@ export class TodoList {
         }
     }
 
-    getTodoItem(index) {
+    static getTodoItem(index) {
         return this.#todoItemArray[index];
     }
 
-    editTodoItem(index, title, description, state, dueDate, priority, project = "default") {
+    static editTodoItem(index, title, description, state, dueDate, priority, project = "default") {
         this.#todoItemArray[index] = new TodoItem(title, description, state, dueDate, priority, project);
     }
 
-    setState(index, state) {
+    static setState(index, state) {
         this.#todoItemArray[index].setState(state);
     }
 
-    deleteTodoItem(index) {
+    static deleteTodoItem(index) {
         return this.#todoItemArray.splice(index, 1);
         /// returns 0 if no item is deleted
     }
