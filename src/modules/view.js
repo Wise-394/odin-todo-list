@@ -100,10 +100,10 @@ export class View {
         const todoListContainer = document.querySelector(".todo-list-container");
         todoListContainer.innerHTML = "";
 
-        todoListArray.forEach((item, index) => {
+        todoListArray.forEach(({ item, index }) => {
             const todoItemContainer = document.createElement("div");
             todoItemContainer.className = "todo-item-container";
-            todoItemContainer.dataset.id = index;
+            todoItemContainer.dataset.id = index; // real index
 
             // Title
             const title = document.createElement("p");
@@ -137,14 +137,14 @@ export class View {
             project.textContent = `Project: ${item.project}`;
             todoItemContainer.appendChild(project);
 
-            //edit
+            // Edit
             const editButton = document.createElement("button");
             editButton.className = "show-edit-modal";
             editButton.textContent = "edit";
-            editButton.addEventListener("click", () => this.#showEditModal(index))
-            todoItemContainer.append(editButton);
+            editButton.addEventListener("click", () => this.#showEditModal(index));
+            todoItemContainer.appendChild(editButton);
 
-            //delete
+            // Delete
             const deleteButton = document.createElement("button");
             deleteButton.className = "delete-todo-item";
             deleteButton.textContent = "delete";
@@ -154,6 +154,7 @@ export class View {
             todoListContainer.appendChild(todoItemContainer);
         });
     }
+
     static displayProjectList(projectListArray) {
         const projectContainer = document.querySelector(".project-container");
         projectContainer.innerHTML = "";

@@ -9,12 +9,11 @@ export class TodoList {
     }
 
     static getTodoItemArray(project = "all") {
-        if (project === "all") {
-            return this.#todoItemArray;
-        } else {
-            return this.#todoItemArray.filter((item) => item.project === project);
-        }
+        return this.#todoItemArray
+            .map((item, i) => ({ item, index: i })) // keep real index
+            .filter(({ item }) => project === "all" || item.project === project);
     }
+
 
     static getTodoItem(index) {
         return this.#todoItemArray[index];

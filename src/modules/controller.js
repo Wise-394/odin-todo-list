@@ -37,8 +37,8 @@ export class Controller {
     }
     static editTodoItem(todoItem, index) {
         TodoList.editTodoItem(todoItem, index);
-        this.displayTodoList();
         this.displayProjectList();
+        this.displayTodoList();
     }
     static setStateTodoItem(index, state) {
         const newState = state === "finished" ? "unfinished" : "finished";
@@ -47,8 +47,9 @@ export class Controller {
     }
     static deleteTodoItem(index) {
         TodoList.deleteTodoItem(index);
+        this.displayProjectList()
         this.displayTodoList();
-        this.displayProjectList();
+
     }
 
 
@@ -58,16 +59,18 @@ export class Controller {
     static displayProjectList() {
         this.updateProjectList();
         View.displayProjectList(ProjectList.getProject());
+        console.log(ProjectList.getProject())
+
     }
 
     static updateProjectList() {
         ProjectList.deleteProject();
         const todoList = TodoList.getTodoItemArray();
         const project = [...new Set(todoList
-            .map(item => item.project)
+            .map(entry => entry.item.project)
             .filter(p => p && p.trim() !== "")
         )];
-        
+
         ProjectList.setProject(project);
     }
     static getCurrentProjectTab() {
