@@ -35,7 +35,10 @@ body>* {
 header {
     flex: 0 1 10vh;
 }
-
+.project-container{
+    display: flex;
+    flex: 0 1 10vh;
+}
 .todo-list-container {
     flex: 1 1 0;
     display: grid;

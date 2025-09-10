@@ -1,7 +1,6 @@
 import { Controller } from "./controller";
 
 export class View {
-    static #todoListContainer = document.querySelector(".todo-list-container");
     static #openNewModal = document.querySelector("#open-new-modal");
 
     //modal 
@@ -94,11 +93,12 @@ export class View {
     static #handleState(index, state) {
         Controller.setStateTodoItem(index, state)
     }
-    static #handleDelete(index){
+    static #handleDelete(index) {
         Controller.deleteTodoItem(index);
     }
     static displayTodoList(todoListArray) {
-        this.#todoListContainer.innerHTML = "";
+        const todoListContainer = document.querySelector(".todo-list-container");
+        todoListContainer.innerHTML = "";
 
         todoListArray.forEach((item, index) => {
             const todoItemContainer = document.createElement("div");
@@ -148,10 +148,20 @@ export class View {
             const deleteButton = document.createElement("button");
             deleteButton.className = "delete-todo-item";
             deleteButton.textContent = "delete";
-            deleteButton.addEventListener("click",() => this.#handleDelete(index));
+            deleteButton.addEventListener("click", () => this.#handleDelete(index));
             todoItemContainer.appendChild(deleteButton);
 
-            this.#todoListContainer.appendChild(todoItemContainer);
+            todoListContainer.appendChild(todoItemContainer);
         });
+    }
+    static displayProjectList(projectListArray) {
+        const projectContainer = document.querySelector(".project-container");
+        projectContainer.innerHTML = "";
+        projectListArray.forEach((project) => {
+            const projectButton = document.createElement("button");
+            projectButton.addEventListener("click", () => Controller.setCurrentProjectTab(project))
+            projectButton.textContent = project;
+            projectContainer.appendChild(projectButton);
+        })
     }
 }

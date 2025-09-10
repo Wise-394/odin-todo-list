@@ -4,4 +4,4 @@ import './style.css';
 
 View.init();
 Controller.addList();
-Controller.displayList();
+Controller.displayTodoList();
