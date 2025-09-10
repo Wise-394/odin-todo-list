@@ -22,7 +22,7 @@ export class Controller {
         View.displayTodoList(TodoList.getTodoItemArray());
     }
 
-    static newTodo(todoItem) {
+    static newTodoItem(todoItem) {
         TodoList.createTodoItem(todoItem);
         this.displayList();
     }
@@ -34,5 +34,14 @@ export class Controller {
     static editTodoItem(todoItem, index){
        TodoList.editTodoItem(todoItem, index);
        this.displayList();
+    }
+    static setStateTodoItem(index, state){
+        const newState = state === "finished" ? "unfinished" : "finished";
+        TodoList.setState(index, newState);
+        this.displayList;
+    }
+    static deleteTodoItem(index){
+       TodoList.deleteTodoItem(index);
+       this.displayList(); 
     }
 }

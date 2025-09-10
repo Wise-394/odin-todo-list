@@ -41,7 +41,7 @@ export class View {
         this.#formState.value = todoItem.state;
         this.#formDueDate.value = todoItem.dueDate;
         this.#formPriority.value = todoItem.priority;
-        this.#formProject.value = todoItem.project
+        this.#formProject.value = todoItem.project;
 
         this.#formActionButton.textContent = "edit";
         this.#formActionButton.dataset.state = "edit-todo";
@@ -70,7 +70,7 @@ export class View {
     static #newTodo() {
         const newTodoItem = this.#getFormData();
 
-        Controller.newTodo(newTodoItem);
+        Controller.newTodoItem(newTodoItem);
         this.#closeModal();
     }
 
@@ -90,6 +90,9 @@ export class View {
             case "edit-todo":
                 this.#editTodo();
         }
+    }
+    static #handleState(index, state) {
+        Controller.setStateTodoItem(index, state)
     }
     static displayTodoList(todoListArray) {
         this.#todoListContainer.innerHTML = "";
@@ -113,6 +116,7 @@ export class View {
             const state = document.createElement("input");
             state.type = "checkbox";
             state.checked = item.state === "finished";
+            state.addEventListener("change", () => this.#handleState(index, item.state));
             todoItemContainer.appendChild(state);
 
             // Due Date

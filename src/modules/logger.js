@@ -1,3 +1,3 @@
-export function logger(message){
- console.log(message)
+export function logger(message, caller){
+ console.log(`${message}, called by: ${caller}`);
 }
