@@ -5,7 +5,7 @@ export class TodoItem {
         this.state = todoItem.state;
         this.dueDate = todoItem.dueDate;
         this.priority = todoItem.priority;
-        this.project = todoItem.project ?? "default";
+        this.project = todoItem.project ?? "";
     }
 
     setState = (state) => this.state = state;

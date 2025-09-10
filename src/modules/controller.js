@@ -3,26 +3,25 @@ import { View } from "./view"
 import { ProjectList } from "./project-list";
 export class Controller {
 
-    static #currentProjectTab = "default";
+    static #currentProjectTab = "all";
 
     static addList() {
         this.newTodoItem({
             title: "test", description: "testing", state: "unfinished",
-            dueDate: "2004-03-09", priority: "low", project: "default"
+            dueDate: "2004-03-09", priority: "low", project: ""
         });
         this.newTodoItem({
             title: "test1", description: "testing", state: "unfinished",
-            dueDate: "2004-03-09", priority: "low", project: "default"
+            dueDate: "2004-03-09", priority: "low", project: ""
         });
         this.newTodoItem({
             title: "test2", description: "testing", state: "unfinished",
-            dueDate: "2004-03-09", priority: "low", project: "default"
+            dueDate: "2004-03-09", priority: "low", project: ""
         });
     }
 
     static displayTodoList() {
         const todoList = TodoList.getTodoItemArray(this.#currentProjectTab);
-        console.log(todoList);
         View.displayTodoList(todoList);
     }
 
@@ -64,7 +63,11 @@ export class Controller {
     static updateProjectList() {
         ProjectList.deleteProject();
         const todoList = TodoList.getTodoItemArray();
-        const project = [...new Set(todoList.map(item => item.project))];
+        const project = [...new Set(todoList
+            .map(item => item.project)
+            .filter(p => p && p.trim() !== "")
+        )];
+        
         ProjectList.setProject(project);
     }
     static getCurrentProjectTab() {
@@ -72,7 +75,6 @@ export class Controller {
     }
     static setCurrentProjectTab(project) {
         this.#currentProjectTab = project;
-        console.log(this.#currentProjectTab);
         this.displayTodoList();
     }
 }

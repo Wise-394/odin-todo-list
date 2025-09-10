@@ -8,8 +8,8 @@ export class TodoList {
         this.#todoItemArray.push(newtodoItem);
     }
 
-    static getTodoItemArray(project = "default") {
-        if (project === "default") {
+    static getTodoItemArray(project = "all") {
+        if (project === "all") {
             return this.#todoItemArray;
         } else {
             return this.#todoItemArray.filter((item) => item.project === project);

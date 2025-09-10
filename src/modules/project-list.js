@@ -1,5 +1,5 @@
 export class ProjectList {
-    static #projectListArray = ["default"];
+    static #projectListArray = ["All"];
 
     static setProject(projectArray) {
         projectArray.forEach(project => {
@@ -14,6 +14,6 @@ export class ProjectList {
     }
 
     static deleteProject() {
-        this.#projectListArray = ["default"];
+        this.#projectListArray = ["all"];
     }
 }

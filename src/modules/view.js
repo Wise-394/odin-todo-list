@@ -61,7 +61,7 @@ export class View {
         const state = formData.get("state");
         const dueDate = formData.get("due-date");
         const priority = formData.get("priority");
-        const project = formData.get("project") === "" ? "defualt" : formData.get("project");
+        const project = formData.get("project") === "" ? "" : formData.get("project");
 
         return { title, description, state, dueDate, priority, project }
     }
