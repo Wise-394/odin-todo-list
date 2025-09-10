@@ -6,15 +6,15 @@ export class Controller {
     static addList() {
         this.newTodo({
             title: "test", description: "testing", state: "unfinished",
-            dueDate: "tomorrow", priority: "low", project: "default"
+            dueDate: "2004-03-09", priority: "low", project: "default"
         });
         this.newTodo({
             title: "test1", description: "testing", state: "unfinished",
-            dueDate: "tomorrow", priority: "low", project: "default"
+            dueDate: "2004-03-09", priority: "low", project: "default"
         });
         this.newTodo({
             title: "test2", description: "testing", state: "unfinished",
-            dueDate: "tomorrow", priority: "low", project: "default"
+            dueDate: "2004-03-09", priority: "low", project: "default"
         });
     }
 
@@ -28,7 +28,11 @@ export class Controller {
     }
 
     static getTodoItem(index) {
-        const item = TodoList.getTodoItem(index);
-        return item;
+        return TodoList.getTodoItem(index);
+  
+    }
+    static editTodoItem(todoItem, index){
+       TodoList.editTodoItem(todoItem, index);
+       this.displayList();
     }
 }

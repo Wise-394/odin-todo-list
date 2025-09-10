@@ -16,7 +16,7 @@ body>* {
     outline: 1px solid white;
 }
 
-#new-todo-modal {
+#modal {
     z-index: 1;
     position: absolute;
     top: 50%;
@@ -27,7 +27,7 @@ body>* {
 
 }
 
-#new-todo-modal>form {
+#modal>form {
     display: flex;
     flex-direction: column;
 }

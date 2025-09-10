@@ -3,7 +3,7 @@ import { TodoItem } from "./todo-item";
 export class TodoList {
     static #todoItemArray = [];
 
-    static createTodoItem( todoItem ) {
+    static createTodoItem(todoItem) {
         const newtodoItem = new TodoItem(todoItem);
         this.#todoItemArray.push(newtodoItem);
     }
@@ -20,8 +20,8 @@ export class TodoList {
         return this.#todoItemArray[index];
     }
 
-    static editTodoItem(index, title, description, state, dueDate, priority, project = "default") {
-        this.#todoItemArray[index] = new TodoItem(title, description, state, dueDate, priority, project);
+    static editTodoItem(todoItem, index) {
+        this.#todoItemArray[index] = new TodoItem(todoItem);
     }
 
     static setState(index, state) {
