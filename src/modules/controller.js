@@ -4,15 +4,15 @@ export class Controller {
 
 
     static addList() {
-        this.newTodo({
+        this.newTodoItem({
             title: "test", description: "testing", state: "unfinished",
             dueDate: "2004-03-09", priority: "low", project: "default"
         });
-        this.newTodo({
+        this.newTodoItem({
             title: "test1", description: "testing", state: "unfinished",
             dueDate: "2004-03-09", priority: "low", project: "default"
         });
-        this.newTodo({
+        this.newTodoItem({
             title: "test2", description: "testing", state: "unfinished",
             dueDate: "2004-03-09", priority: "low", project: "default"
         });

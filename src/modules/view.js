@@ -94,6 +94,9 @@ export class View {
     static #handleState(index, state) {
         Controller.setStateTodoItem(index, state)
     }
+    static #handleDelete(index){
+        Controller.deleteTodoItem(index);
+    }
     static displayTodoList(todoListArray) {
         this.#todoListContainer.innerHTML = "";
 
@@ -140,6 +143,13 @@ export class View {
             editButton.textContent = "edit";
             editButton.addEventListener("click", () => this.#showEditModal(index))
             todoItemContainer.append(editButton);
+
+            //delete
+            const deleteButton = document.createElement("button");
+            deleteButton.className = "delete-todo-item";
+            deleteButton.textContent = "delete";
+            deleteButton.addEventListener("click",() => this.#handleDelete(index));
+            todoItemContainer.appendChild(deleteButton);
 
             this.#todoListContainer.appendChild(todoItemContainer);
         });
