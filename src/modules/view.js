@@ -1,24 +1,33 @@
 import { Controller } from "./controller";
 
 export class View {
-        static #todoListContainer = document.querySelector(".todo-list-container");
-        static #newTodoButton = document.querySelector("#new-todo-button");
-        static #dialog = document .querySelector("#new-todo-modal");
-        static #form = document.querySelector("form");
-        static #closeModalButton = document.querySelector(".close-modal-button")
+    static #todoListContainer = document.querySelector(".todo-list-container");
+    static #newTodoButton = document.querySelector("#new-todo-button");
+    static #dialog = document.querySelector("#new-todo-modal");
+    static #form = document.querySelector("form");
+    static #closeModalButton = document.querySelector(".close-modal-button");
 
-    static init(){
+    static init() {
         this.#newTodoButton.addEventListener(("click"), () => this.#showModal());
         this.#closeModalButton.addEventListener(("click"), () => this.#closeModal());
-        this.#dialog.addEventListener(("submit"), (e) => this.#handleSubmit(e))
+        this.#dialog.addEventListener(("submit"), (e) => this.#handleSubmit(e));
     }
-    static #showModal(){
-        this.#dialog.showModal();
+    static #showModal(state = "new") {
+        switch (state) {
+            case "new":
+                this.#dialog.showModal();
+                break;
+            case "edit":
+        }
     }
-    static #closeModal(){
+    static #handleEdit(index) {
+        console.log(index);
+
+    }
+    static #closeModal() {
         this.#dialog.close();
     }
-    static #handleSubmit(e){
+    static #handleSubmit(e) {
         e.preventDefault();
 
         const formData = new FormData(this.#form);
@@ -28,16 +37,18 @@ export class View {
         const state = formData.get("state");
         const dueDate = formData.get("due-date");
         const priority = formData.get("priority");
-        const project = formData.get("project");
-        Controller.newTodo(title,description, state, dueDate, priority, project);
+        const project = formData.get("project") === "" ? formData.get("project") : "default";
+        Controller.newTodo({ title, description, state, dueDate, priority, project });
+        this.#form.reset();
         this.#closeModal()
     }
     static displayTodoList(todoListArray) {
         this.#todoListContainer.innerHTML = "";
 
-        todoListArray.forEach((item) => {
+        todoListArray.forEach((item, index) => {
             const todoItemContainer = document.createElement("div");
             todoItemContainer.className = "todo-item-container";
+            todoItemContainer.dataset.id = index;
 
             // Title
             const title = document.createElement("p");
@@ -69,6 +80,13 @@ export class View {
             const project = document.createElement("p");
             project.textContent = `Project: ${item.project}`;
             todoItemContainer.appendChild(project);
+
+            //edit
+            const editButton = document.createElement("button");
+            editButton.className = "edit-button";
+            editButton.textContent = "edit";
+            editButton.addEventListener("click", () => this.#handleEdit(index))
+            todoItemContainer.append(editButton);
 
             this.#todoListContainer.appendChild(todoItemContainer);
         });

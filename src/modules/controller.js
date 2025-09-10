@@ -13,8 +13,8 @@ export class Controller {
         View.displayTodoList(TodoList.getTodoItemArray());
     }
 
-    static newTodo(title, description, state, duedate, priority, project) {
-        TodoList.createTodoItem(title, description, state, duedate, priority, project);
+    static newTodo(todoItem) {
+        TodoList.createTodoItem(todoItem);
         this.displayList();
     }
 }

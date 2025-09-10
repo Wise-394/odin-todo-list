@@ -3,9 +3,9 @@ import { TodoItem } from "./todo-item";
 export class TodoList {
     static #todoItemArray = [];
 
-    static createTodoItem(title, description, state, dueDate, priority, project = "default") {
-        const todoItem = new TodoItem(title, description, state, dueDate, priority, project);
-        this.#todoItemArray.push(todoItem);
+    static createTodoItem( todoItem ) {
+        const newtodoItem = new TodoItem(todoItem);
+        this.#todoItemArray.push(newtodoItem);
     }
 
     static getTodoItemArray(project = "default") {

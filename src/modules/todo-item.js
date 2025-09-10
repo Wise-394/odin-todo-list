@@ -1,11 +1,11 @@
 export class TodoItem {
-    constructor(title, description, state, dueDate, priority, project) {
-        this.title = title;
-        this.description = description;
-        this.state = state;
-        this.dueDate = dueDate;
-        this.priority = priority;
-        this.project = project;
+    constructor(todoItem) {
+        this.title = todoItem.title;
+        this.description = todoItem.description;
+        this.state = todoItem.state;
+        this.dueDate = todoItem.dueDate;
+        this.priority = todoItem.priority;
+        this.project = todoItem.project ?? "default";
     }
 
     static setState = (state) => this.state = state;
