@@ -7,21 +7,46 @@ export class View {
     static #form = document.querySelector("form");
     static #closeModalButton = document.querySelector(".close-modal-button");
 
+    //form inputs
+    static #formTitle = document.querySelector("#title");
+    static #formDescription = document.querySelector("#description");
+    static #formState = document.querySelector("#state");
+    static #formDueDate = document.querySelector("#due-date");
+    static #formPriority = document.querySelector("#priority");
+
     static init() {
-        this.#newTodoButton.addEventListener(("click"), () => this.#showModal());
+        this.#newTodoButton.addEventListener(("click"), () => this.#handleNew());
         this.#closeModalButton.addEventListener(("click"), () => this.#closeModal());
         this.#dialog.addEventListener(("submit"), (e) => this.#handleSubmit(e));
     }
-    static #showModal(state = "new") {
+    static #showModal(state, todoItem) {
         switch (state) {
             case "new":
                 this.#dialog.showModal();
                 break;
             case "edit":
+                this.#dialog.showModal();
+                this.#formTitle.value = todoItem.title;
+                this.#formDescription.value = todoItem.description;
+                this.#formState.value = todoItem.state;
+                this.#formDueDate.value = todoItem.date;
+                this.#formPriority.value = todoItem.priority;
         }
     }
+    static #handleNew(){
+        this.#showModal("new")
+    }
     static #handleEdit(index) {
-        console.log(index);
+        const todoItem = Controller.getTodoItem(index);
+
+        const title = todoItem.title;
+        const description = todoItem.description;
+        const state = todoItem.state;
+        const dueDate = todoItem.date;
+        const priority = todoItem.priority;
+        const project = todoItem.project;
+
+        this.#showModal("edit", {title, description,state,dueDate,priority,project});
 
     }
     static #closeModal() {

@@ -4,9 +4,18 @@ export class Controller {
 
 
     static addList() {
-        TodoList.createTodoItem("Eat", "I need to eat", "unfinished", "tomorrow", "high", "Life");
-        TodoList.createTodoItem("Code", "Finish my project", "unfinished", "today", "medium", "Work");
-        TodoList.createTodoItem("Sleep", "Go to bed early", "finished", "tonight", "low", "Life");
+        this.newTodo({
+            title: "test", description: "testing", state: "unfinished",
+            dueDate: "tomorrow", priority: "low", project: "default"
+        });
+        this.newTodo({
+            title: "test1", description: "testing", state: "unfinished",
+            dueDate: "tomorrow", priority: "low", project: "default"
+        });
+        this.newTodo({
+            title: "test2", description: "testing", state: "unfinished",
+            dueDate: "tomorrow", priority: "low", project: "default"
+        });
     }
 
     static displayList() {
@@ -16,5 +25,10 @@ export class Controller {
     static newTodo(todoItem) {
         TodoList.createTodoItem(todoItem);
         this.displayList();
+    }
+
+    static getTodoItem(index) {
+        const item = TodoList.getTodoItem(index);
+        return item;
     }
 }
