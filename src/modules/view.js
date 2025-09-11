@@ -165,4 +165,7 @@ export class View {
             projectContainer.appendChild(projectButton);
         })
     }
+    static projectTabSelected(){
+        
+    }
 }
