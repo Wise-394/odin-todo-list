@@ -27,8 +27,7 @@ export class Controller {
 
     static newTodoItem(todoItem) {
         TodoList.createTodoItem(todoItem);
-        this.displayTodoList();
-        this.displayProjectList();
+        this.#refreshView();
     }
 
     static getTodoItem(index) {
@@ -37,29 +36,28 @@ export class Controller {
     }
     static editTodoItem(todoItem, index) {
         TodoList.editTodoItem(todoItem, index);
-        this.displayProjectList();
-        this.displayTodoList();
+        this.#refreshView();
     }
     static setStateTodoItem(index, state) {
         const newState = state === "finished" ? "unfinished" : "finished";
         TodoList.setState(index, newState);
-        this.displayList;
+        this.#refreshView();
     }
     static deleteTodoItem(index) {
         TodoList.deleteTodoItem(index);
-        this.displayProjectList()
-        this.displayTodoList();
+        this.#refreshView();
 
+    }
+    static #refreshView(){
+        this.displayProjectList();
+        this.displayTodoList();
     }
 
 
     //project
-
-
     static displayProjectList() {
         this.updateProjectList();
         View.displayProjectList(ProjectList.getProject());
-        console.log(ProjectList.getProject())
 
     }
 
@@ -78,6 +76,6 @@ export class Controller {
     }
     static setCurrentProjectTab(project) {
         this.#currentProjectTab = project;
-        this.displayTodoList();
+        this.#refreshView();
     }
 }

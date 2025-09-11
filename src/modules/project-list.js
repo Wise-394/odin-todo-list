@@ -17,4 +17,3 @@ export class ProjectList {
         this.#projectListArray = ["all"];
     }
 }
-// TODO: fix bug project duplication

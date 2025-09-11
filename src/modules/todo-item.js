@@ -8,5 +8,4 @@ export class TodoItem {
         this.project = todoItem.project ?? "";
     }
 
-    setState = (state) => this.state = state;
 }

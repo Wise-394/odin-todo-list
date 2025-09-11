@@ -10,7 +10,7 @@ export class TodoList {
 
     static getTodoItemArray(project = "all") {
         return this.#todoItemArray
-            .map((item, i) => ({ item, index: i })) // keep real index
+            .map((item, i) => ({ item, index: i }))
             .filter(({ item }) => project === "all" || item.project === project);
     }
 
@@ -24,7 +24,7 @@ export class TodoList {
     }
 
     static setState(index, state) {
-        this.#todoItemArray[index].setState(state);
+        this.#todoItemArray[index].state = state;
     }
 
     static deleteTodoItem(index) {
