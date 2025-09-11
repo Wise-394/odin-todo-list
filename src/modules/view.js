@@ -1,7 +1,9 @@
 import { Controller } from "./controller";
-
+import deleteImg from "../assets/image/delete.png";
+import editImg from "../assets/image/edit.png"
 export class View {
     static #openNewModal = document.querySelector("#open-new-modal");
+
 
     //modal 
     static #form = document.querySelector("form");
@@ -103,56 +105,83 @@ export class View {
         todoListArray.forEach(({ item, index }) => {
             const todoItemContainer = document.createElement("div");
             todoItemContainer.className = "todo-item-container";
-            todoItemContainer.dataset.id = index; // real index
+            // Priority
+            todoItemContainer.style.borderLeft = `10px solid ${this.getPriorityColor(item.priority)}`;
+            todoItemContainer.dataset.id = index;
 
+            //top
+            const titleAndDeleteContainer = document.createElement("div");
+            todoItemContainer.appendChild(titleAndDeleteContainer);
             // Title
             const title = document.createElement("p");
-            title.textContent = `Title: ${item.title}`;
-            todoItemContainer.appendChild(title);
+            title.textContent = `${item.title}`;
+            title.className = "todo-title"
+            titleAndDeleteContainer.appendChild(title);
+            // Delete
+            const deleteButton = document.createElement("button");
+            deleteButton.className = "delete-todo-item";
+            deleteButton.addEventListener("click", () => this.#handleDelete(index));
+            deleteButton.className = "todo-delete-button";
+            //img for delete
+            const deleteImgElement = document.createElement("img");
+            deleteImgElement.src = deleteImg;
+            deleteButton.appendChild(deleteImgElement);
+            titleAndDeleteContainer.appendChild(deleteButton);
 
             // Description
             const description = document.createElement("p");
-            description.textContent = `Description: ${item.description}`;
+            description.textContent = `${item.description}`;
+            description.className = "todo-description";
             todoItemContainer.appendChild(description);
 
+            // Due Date
+            const dueDate = document.createElement("p");
+            dueDate.textContent = `${item.dueDate}`;
+            dueDate.className = "todo-due-date";
+            todoItemContainer.appendChild(dueDate);
+
+            // Project
+            const project = document.createElement("p");
+            project.textContent = `Project: ${item.project}`;
+            project.className = "todo-project";
+            todoItemContainer.appendChild(project);
+
+
+            const checkboxAndEditContainer = document.createElement("div");
+            todoItemContainer.appendChild(checkboxAndEditContainer);
             // State (checkbox)
             const state = document.createElement("input");
             state.type = "checkbox";
             state.checked = item.state === "finished";
             state.addEventListener("change", () => this.#handleState(index, item.state));
-            todoItemContainer.appendChild(state);
-
-            // Due Date
-            const dueDate = document.createElement("p");
-            dueDate.textContent = `Due Date: ${item.dueDate}`;
-            todoItemContainer.appendChild(dueDate);
-
-            // Priority
-            const priority = document.createElement("p");
-            priority.textContent = `Priority: ${item.priority}`;
-            todoItemContainer.appendChild(priority);
-
-            // Project
-            const project = document.createElement("p");
-            project.textContent = `Project: ${item.project}`;
-            todoItemContainer.appendChild(project);
-
+            state.className = "todo-checkbox";
+            checkboxAndEditContainer.appendChild(state);
             // Edit
             const editButton = document.createElement("button");
             editButton.className = "show-edit-modal";
-            editButton.textContent = "edit";
             editButton.addEventListener("click", () => this.#showEditModal(index));
-            todoItemContainer.appendChild(editButton);
+            editButton.className = "todo-edit-button";
+            const editButtonImage = document.createElement("img");
+            editButtonImage.src = editImg;
+            editButton.appendChild(editButtonImage);
+            checkboxAndEditContainer.appendChild(editButton);
 
-            // Delete
-            const deleteButton = document.createElement("button");
-            deleteButton.className = "delete-todo-item";
-            deleteButton.textContent = "delete";
-            deleteButton.addEventListener("click", () => this.#handleDelete(index));
-            todoItemContainer.appendChild(deleteButton);
+
+
 
             todoListContainer.appendChild(todoItemContainer);
         });
+    }
+    static getPriorityColor(priority) {
+        switch (priority) {
+            case "high":
+                return "var(--high-priority)";
+            case "medium":
+                return "var(--med-priority)";
+            default:
+                return "var(--low-priority)";
+
+        }
     }
 
     static displayProjectList(projectListArray) {
@@ -165,7 +194,7 @@ export class View {
             projectContainer.appendChild(projectButton);
         })
     }
-    static projectTabSelected(){
-        
+    static projectTabSelected() {
+
     }
 }
