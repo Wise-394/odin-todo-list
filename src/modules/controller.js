@@ -1,25 +1,10 @@
 import { TodoList } from "./todo-list";
 import { View } from "./view"
 import { ProjectList } from "./project-list";
+import { Database } from "./database";
 export class Controller {
 
     static #currentProjectTab = "all";
-
-    static addList() {
-        this.newTodoItem({
-            title: "test", description: "testing", state: "unfinished",
-            dueDate: "2004-03-09", priority: "low", project: ""
-        });
-        this.newTodoItem({
-            title: "test1", description: "testing", state: "unfinished",
-            dueDate: "2004-03-09", priority: "low", project: ""
-        });
-        this.newTodoItem({
-            title: "test2", description: "testing", state: "unfinished",
-            dueDate: "2004-03-09", priority: "low", project: ""
-        });
-    }
-
     static displayTodoList() {
         const todoList = TodoList.getTodoItemArray(this.#currentProjectTab);
         View.displayTodoList(todoList);
@@ -27,7 +12,9 @@ export class Controller {
 
     static newTodoItem(todoItem) {
         TodoList.createTodoItem(todoItem);
-        this.#refreshView();
+        this.#saveTodoList();
+        this.updateProjectList();
+        this.refreshView();
     }
 
     static getTodoItem(index) {
@@ -36,29 +23,41 @@ export class Controller {
     }
     static editTodoItem(todoItem, index) {
         TodoList.editTodoItem(todoItem, index);
-        this.#refreshView();
+        this.#saveTodoList();
+        this.updateProjectList();
+        this.#checkIfTabStillExist();
+        this.refreshView();
     }
     static setStateTodoItem(index, state) {
         const newState = state === "finished" ? "unfinished" : "finished";
         TodoList.setState(index, newState);
-        this.#refreshView();
+        this.#saveTodoList();
+        this.updateProjectList();
+        this.refreshView();
     }
     static deleteTodoItem(index) {
         TodoList.deleteTodoItem(index);
-        this.#refreshView();
+        this.#saveTodoList();
+        this.updateProjectList();
+        this.#checkIfTabStillExist();
+        this.refreshView();
 
     }
-    static #refreshView(){
-        this.displayProjectList();
+    static refreshView() {
         this.displayTodoList();
+        this.displayProjectList();
     }
 
 
     //project
     static displayProjectList() {
-        this.updateProjectList();
         View.displayProjectList(ProjectList.getProject());
-
+    }
+    static #checkIfTabStillExist() {
+        const project = ProjectList.getProject();
+        if (!project.includes(this.#currentProjectTab)) {
+            this.setCurrentProjectTab("all");
+        }
     }
 
     static updateProjectList() {
@@ -71,11 +70,25 @@ export class Controller {
 
         ProjectList.setProject(project);
     }
+
+
     static getCurrentProjectTab() {
         return this.#currentProjectTab;
     }
     static setCurrentProjectTab(project) {
         this.#currentProjectTab = project;
-        this.#refreshView();
+        this.refreshView();
+    }
+
+    //database
+    static #saveTodoList() {
+        const todoList = TodoList.getallTodoItemArray();
+        Database.setTodoList(todoList);
+    }
+    static loadTodoList() {
+        const todoList = Database.getTodoList();
+        TodoList.setTodoItemArray(todoList);
+        this.refreshView();
+
     }
 }

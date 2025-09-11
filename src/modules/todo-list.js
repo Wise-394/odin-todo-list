@@ -7,7 +7,17 @@ export class TodoList {
         const newtodoItem = new TodoItem(todoItem);
         this.#todoItemArray.push(newtodoItem);
     }
+    static setTodoItemArray(todoArray) {
+        if (Array.isArray(todoArray)) {
+            this.#todoItemArray = todoArray;
+        } else {
+            this.#todoItemArray = []; 
+        }
+    }
 
+    static getallTodoItemArray(){
+        return this.#todoItemArray;
+    }
     static getTodoItemArray(project = "all") {
         return this.#todoItemArray
             .map((item, i) => ({ item, index: i }))
