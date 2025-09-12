@@ -19,38 +19,41 @@
                 <input type="text" id="title" name="title" required>
 
                 <label for="description">Description</label>
-                <textarea id="description" name="description" rows="3" required></textarea>
-
-                <label for="state">State</label>
-                <select id="state" name="state">
-                    <option value="unfinished">Unfinished</option>
-                    <option value="finished">Finished</option>
-                </select>
-
-                <label for="due-date">Due Date</label>
-                <input type="date" id="due-date" name="due-date">
-
-                <label for="priority">Priority</label>
-                <select id="priority" name="priority">
-                    <option value="low">Low</option>
-                    <option value="medium">Medium</option>
-                    <option value="high">High</option>
-                </select>
+                <textarea id="description" name="description" rows="5" required></textarea>
 
                 <label for="project">Project</label>
                 <input type="text" id="project" name="project" value="">
 
+
+                <div>
+                    <label for="state">State</label>
+                    <select id="state" name="state">
+                        <option value="unfinished">Unfinished</option>
+                        <option value="finished">Finished</option>
+                    </select>
+
+                    <label for="priority">Priority</label>
+                    <select id="priority" name="priority">
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                </div>
+
+                <label for="due-date">Due Date</label>
+                <input type="date" id="due-date" name="due-date">
+
                 <!-- Buttons -->
                 <menu>
                     <button type="reset" class="close-modal-button">Cancel</button>
-                    <button type="submit" id ="action-button">Add Todo</button>
+                    <button type="submit" id="action-button">Add Todo</button>
                 </menu>
             </form>
         </dialog>
 
     </header>
     <div class="project-container">
-        
+
     </div>
     <div class="todo-list-container">
 
