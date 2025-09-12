@@ -2,6 +2,7 @@ import { TodoList } from "./todo-list";
 import { View } from "./view"
 import { ProjectList } from "./project-list";
 import { Database } from "./database";
+import { TodoItem } from "./todo-item";
 export class Controller {
 
     static #currentProjectTab = "all";
@@ -80,15 +81,53 @@ export class Controller {
         this.refreshView();
     }
 
+
     //database
     static #saveTodoList() {
         const todoList = TodoList.getallTodoItemArray();
         Database.setTodoList(todoList);
     }
     static loadTodoList() {
-        const todoList = Database.getTodoList();
-        TodoList.setTodoItemArray(todoList);
-        this.refreshView();
+        let todoList = Database.getTodoList();
 
+        if (!todoList || todoList.length === 0) {
+            todoList = this.#generatePlaceholderItem();
+            TodoList.setTodoItemArray(todoList);
+            this.#saveTodoList();
+        } else {
+            TodoList.setTodoItemArray(todoList);
+        }
+
+        this.refreshView();
     }
+
+    static #generatePlaceholderItem() {
+        return [
+            new TodoItem({
+                title: "Welcome to ToDo",
+                description: "This is a placeholder task.",
+                project: "",
+                dueDate: "2024-09-09",
+                priority: "low",
+                state: "unfinished"
+            }),
+            new TodoItem({
+                title: "Do my homework",
+                description: "Do my english homework activity 2.",
+                project: "school",
+                dueDate: "2024-09-09",
+                priority: "high",
+                state: "unfinished"
+            }),
+            new TodoItem({
+                title: "Clean my room",
+                description: "My room is dirty, I need to clean it",
+                project: "home",
+                dueDate: "2024-09-09",
+                priority: "medium",
+                state: "unfinished"
+            }),
+        ];
+    }
+
 }
