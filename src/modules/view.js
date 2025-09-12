@@ -194,7 +194,22 @@ export class View {
             projectContainer.appendChild(projectButton);
         })
     }
-    static projectTabSelected() {
+    static projectTabSelected(oldTab, newTab) {
+        const projectContainer = document.querySelector(".project-container");
+        const oldButton = [...projectContainer.children].find(
+            (btn) => btn.textContent === oldTab
+        );
+        const newButton = [...projectContainer.children].find(
+            (btn) => btn.textContent === newTab
+        );
 
+        if (oldButton) {
+            oldButton.removeAttribute("id");
+        }
+
+        if (newButton) {
+            newButton.id = "button-selected";
+        }
     }
+
 }

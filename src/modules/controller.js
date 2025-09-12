@@ -77,8 +77,11 @@ export class Controller {
         return this.#currentProjectTab;
     }
     static setCurrentProjectTab(project) {
+        const oldTab = this.#currentProjectTab;
         this.#currentProjectTab = project;
+
         this.refreshView();
+        View.projectTabSelected(oldTab, project);
     }
 
 
